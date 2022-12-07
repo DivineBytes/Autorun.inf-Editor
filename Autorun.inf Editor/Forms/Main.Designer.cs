@@ -60,6 +60,7 @@ namespace Autorun.inf_Editor.Forms
             this.TSMI_VisitWiki = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_VisitLearnMicrosoft = new System.Windows.Forms.ToolStripMenuItem();
             this.RTB_Editor = new Autorun.inf_Editor.Controls.RichTextBoxEx();
+            this.TSSL_SaveFileName = new System.Windows.Forms.ToolStripStatusLabel();
             this.SS_Main.SuspendLayout();
             this.MS_Main.SuspendLayout();
             this.CMS_Editor.SuspendLayout();
@@ -69,7 +70,8 @@ namespace Autorun.inf_Editor.Forms
             // 
             this.SS_Main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TSSL_LnColPos,
-            this.TSSL_StartEndLength});
+            this.TSSL_StartEndLength,
+            this.TSSL_SaveFileName});
             this.SS_Main.Location = new System.Drawing.Point(0, 339);
             this.SS_Main.Name = "SS_Main";
             this.SS_Main.Size = new System.Drawing.Size(384, 22);
@@ -87,6 +89,7 @@ namespace Autorun.inf_Editor.Forms
             this.TSSL_StartEndLength.Name = "TSSL_StartEndLength";
             this.TSSL_StartEndLength.Size = new System.Drawing.Size(127, 17);
             this.TSSL_StartEndLength.Text = "Start 0, End 0, Length 0";
+            this.TSSL_StartEndLength.Visible = false;
             // 
             // MS_Main
             // 
@@ -117,45 +120,51 @@ namespace Autorun.inf_Editor.Forms
             // TSMI_New
             // 
             this.TSMI_New.Name = "TSMI_New";
-            this.TSMI_New.Size = new System.Drawing.Size(123, 22);
+            this.TSMI_New.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.TSMI_New.Size = new System.Drawing.Size(195, 22);
             this.TSMI_New.Text = "New";
             this.TSMI_New.Click += new System.EventHandler(this.TSMI_New_Click);
             // 
             // TSMI_Open
             // 
             this.TSMI_Open.Name = "TSMI_Open";
-            this.TSMI_Open.Size = new System.Drawing.Size(123, 22);
+            this.TSMI_Open.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.TSMI_Open.Size = new System.Drawing.Size(195, 22);
             this.TSMI_Open.Text = "Open";
             this.TSMI_Open.Click += new System.EventHandler(this.TSMI_Open_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(192, 6);
             // 
             // TSMI_Save
             // 
             this.TSMI_Save.Name = "TSMI_Save";
-            this.TSMI_Save.Size = new System.Drawing.Size(123, 22);
+            this.TSMI_Save.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.TSMI_Save.Size = new System.Drawing.Size(195, 22);
             this.TSMI_Save.Text = "Save";
             this.TSMI_Save.Click += new System.EventHandler(this.TSMI_Save_Click);
             // 
             // TSMI_SaveAs
             // 
             this.TSMI_SaveAs.Name = "TSMI_SaveAs";
-            this.TSMI_SaveAs.Size = new System.Drawing.Size(123, 22);
+            this.TSMI_SaveAs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.TSMI_SaveAs.Size = new System.Drawing.Size(195, 22);
             this.TSMI_SaveAs.Text = "Save As...";
             this.TSMI_SaveAs.Click += new System.EventHandler(this.TSMI_SaveAs_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(192, 6);
             // 
             // TSMI_Exit
             // 
             this.TSMI_Exit.Name = "TSMI_Exit";
-            this.TSMI_Exit.Size = new System.Drawing.Size(123, 22);
+            this.TSMI_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.TSMI_Exit.Size = new System.Drawing.Size(195, 22);
             this.TSMI_Exit.Text = "Exit";
             this.TSMI_Exit.Click += new System.EventHandler(this.TSMI_Exit_Click);
             // 
@@ -172,14 +181,14 @@ namespace Autorun.inf_Editor.Forms
             // TSMI_Label
             // 
             this.TSMI_Label.Name = "TSMI_Label";
-            this.TSMI_Label.Size = new System.Drawing.Size(180, 22);
+            this.TSMI_Label.Size = new System.Drawing.Size(103, 22);
             this.TSMI_Label.Text = "Label";
             this.TSMI_Label.Click += new System.EventHandler(this.TSMI_Label_Click);
             // 
             // TSMI_Icon
             // 
             this.TSMI_Icon.Name = "TSMI_Icon";
-            this.TSMI_Icon.Size = new System.Drawing.Size(180, 22);
+            this.TSMI_Icon.Size = new System.Drawing.Size(103, 22);
             this.TSMI_Icon.Text = "Icon";
             this.TSMI_Icon.Click += new System.EventHandler(this.TSMI_Icon_Click);
             // 
@@ -188,8 +197,8 @@ namespace Autorun.inf_Editor.Forms
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TSMI_About,
             this.toolStripSeparator4,
-            this.TSMI_VisitWiki,
-            this.TSMI_VisitLearnMicrosoft});
+            this.TSMI_VisitLearnMicrosoft,
+            this.TSMI_VisitWiki});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -204,7 +213,7 @@ namespace Autorun.inf_Editor.Forms
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -296,6 +305,12 @@ namespace Autorun.inf_Editor.Forms
             this.RTB_Editor.Text = "";
             this.RTB_Editor.TextChanged += new System.EventHandler(this.RTB_Editor_TextChanged);
             // 
+            // TSSL_SaveFileName
+            // 
+            this.TSSL_SaveFileName.Name = "TSSL_SaveFileName";
+            this.TSSL_SaveFileName.Size = new System.Drawing.Size(12, 17);
+            this.TSSL_SaveFileName.Text = "*";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -351,6 +366,7 @@ namespace Autorun.inf_Editor.Forms
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem TSMI_VisitWiki;
         private System.Windows.Forms.ToolStripMenuItem TSMI_VisitLearnMicrosoft;
+        protected internal System.Windows.Forms.ToolStripStatusLabel TSSL_SaveFileName;
     }
 }
 

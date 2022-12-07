@@ -144,7 +144,7 @@
             this.L_Dedicated.Name = "L_Dedicated";
             this.L_Dedicated.Size = new System.Drawing.Size(284, 23);
             this.L_Dedicated.TabIndex = 25;
-            this.L_Dedicated.Text = "Dedicated to: A. F.  <3 (For the Lulz)";
+            this.L_Dedicated.Text = "Dedicated to: A. F.  <3 - For the Lulz";
             this.L_Dedicated.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1

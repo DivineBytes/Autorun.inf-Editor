@@ -60,6 +60,7 @@
     <Compile Include="Dialogs\DialogInput.Designer.cs">
       <DependentUpon>DialogInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutorunFileEditor.cs" />
     <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -13,34 +13,43 @@ namespace Autorun.inf_Editor.Forms
 {
     public partial class Main : Form
     {
+        /// <summary>
+        /// The Autorun file editor object.
+        /// </summary>
+        public AutorunFileEditor fileEditor;
+
+        /// <summary>
+        /// The main initializer.
+        /// </summary>
         public Main()
         {
             InitializeComponent();
 
+            // Initialize
+            fileEditor = new AutorunFileEditor();
+
+            // Initialize the event handlers
             RTB_Editor.CursorPositionChanged += new EventHandler(RichTextBox_CursorPositionChanged);
             RTB_Editor.SelectionChanged += new EventHandler(RichTextBox_SelectionChanged);
 
+            // Create new document
             CreateNewDocument();
         }
-        
+
         private void CreateNewDocument()
         {
+            fileEditor.New();
+
+            // Set cursor selection after inserted text.
             RTB_Editor.Text = AutorunFile.Header;
             RTB_Editor.Select(AutorunFile.HeaderLength, 0);
-
-            DocumentLocation = string.Empty;
-            DocumentSaved = true;
         }
-
-        public static bool DocumentSaved { get; set; }
-        
-        public static string DocumentLocation { get; set; }
 
         private void TSMI_New_Click(object sender, EventArgs e)
         {
             try
             {
-                var saved = AskToSaveDocument(RTB_Editor.Text);
+                fileEditor.AskToSave();
                 CreateNewDocument();
             }
             catch (Exception ex)
@@ -53,23 +62,12 @@ namespace Autorun.inf_Editor.Forms
         {
             try
             {
-                if (!DocumentSaved)
-                {
-                    var saved = SaveDocument(RTB_Editor.Text);
-                }
+                var opened = fileEditor.ShowOpenDialog();
 
-                OpenFileDialog openFileDialog = new OpenFileDialog
+                if (opened)
                 {
-                    Title = "Open",
-                    Filter = AutorunFile.AutorunFileDialogFilter.Filter,
-                    FileName = ""
-                };
-
-                if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-                {
-                    DocumentSaved = true;
-                    DocumentLocation = openFileDialog.FileName;
-                    RTB_Editor.Text = File.ReadAllText(openFileDialog.FileName);
+                    RTB_Editor.Text = fileEditor.Content;
+                    TSSL_SaveFileName.Text = fileEditor.Location;
                 }
             }
             catch (Exception ex)
@@ -82,7 +80,7 @@ namespace Autorun.inf_Editor.Forms
         {
             try
             {
-                AskToSaveDocument(RTB_Editor.Text);
+                fileEditor.AskToSave();
             }
             catch (Exception ex)
             {
@@ -92,95 +90,25 @@ namespace Autorun.inf_Editor.Forms
             Application.Exit();
         }
 
-        private static bool AskToSaveDocument(string document)
-        {
-            if (string.IsNullOrEmpty(document))
-            {
-                return false;
-            }
-
-            try
-            {
-                if (!DocumentSaved)
-                {
-                    // Ask to save document.
-                    string message = "Do you want to save the document?";
-                    string title = "Save";
-
-                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                    DialogResult result = MessageBox.Show(message, title, buttons);
-
-                    if (result == DialogResult.Yes)
-                    {
-                        var saved = SaveDocument(document);
-                        return saved;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-
-            return false;
-        }
-
-        private static bool SaveDocument(string document)
-        {
-            if (string.IsNullOrEmpty(document))
-            {
-                DocumentSaved = false;
-                return false;
-            }
-
-            try
-            {
-                if (!DocumentSaved)
-                {
-                    if (!string.IsNullOrEmpty(DocumentLocation) && File.Exists(DocumentLocation)) // Save
-                    {
-                        File.WriteAllText(DocumentLocation, document);
-                    }
-                    else // Save As...
-                    {
-                        SaveFileDialog saveFileDialog = new SaveFileDialog
-                        {
-                            Title = @"Save",
-                            Filter = AutorunFile.AutorunFileDialogFilter.Filter,
-                            FileName = AutorunFile.FileName
-                        };
-
-                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            DocumentLocation = saveFileDialog.FileName;
-                            File.WriteAllText(saveFileDialog.FileName, document);
-                        }
-                    }
-
-                    DocumentSaved = true;
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-
-            }
-
-            DocumentSaved = false;
-            return false;
-        }
-
         private void TSMI_Save_Click(object sender, EventArgs e)
         {
-            SaveDocument(RTB_Editor.Text);
+            try
+            {
+                var saved = fileEditor.Save();
+                TSSL_SaveFileName.Text = fileEditor.SavedTitle;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         private void TSMI_SaveAs_Click(object sender, EventArgs e)
         {
             try
             {
-               var saved = SaveDocument(RTB_Editor.Text);
+               var saved = fileEditor.Save(true);
+               TSSL_SaveFileName.Text = fileEditor.SavedTitle;
             }
             catch (Exception ex)
             {
@@ -190,9 +118,11 @@ namespace Autorun.inf_Editor.Forms
 
         private void RTB_Editor_TextChanged(object sender, EventArgs e)
         {
+            fileEditor.Content = RTB_Editor.Text;
+
             try
             {
-                DocumentSaved = false;
+                TSSL_SaveFileName.Text = fileEditor.SavedTitle;
 
                 if (RTB_Editor.TextLength > 0)
                 {
@@ -212,7 +142,7 @@ namespace Autorun.inf_Editor.Forms
         {
             try
             {
-                AskToSaveDocument(RTB_Editor.Text);
+                fileEditor.AskToSave();
             }
             catch (Exception ex)
             {
@@ -293,7 +223,7 @@ namespace Autorun.inf_Editor.Forms
             if (di.ShowDialog(this) == DialogResult.OK)
             {
                 var index = lp.NUD_Index.Value;
-                var str = string.Empty;
+                string str;
                 if (index == 0)
                 {
                     str = string.Format("icon={0}", lp.TB_Input.Text);
@@ -355,14 +285,12 @@ namespace Autorun.inf_Editor.Forms
         private void TSMI_VisitWiki_Click(object sender, EventArgs e)
         {
             string url = "https://en.wikipedia.org/wiki/Autorun.inf";
-
             Process.Start(url);
         }
 
         private void TSMI_VisitLearnMicrosoft_Click(object sender, EventArgs e)
         {
             string url = "https://learn.microsoft.com/en-us/windows/win32/shell/autorun-cmds";
-
             Process.Start(url);
         }
     }
