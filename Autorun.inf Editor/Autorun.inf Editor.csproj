@@ -60,6 +60,12 @@
     <Compile Include="Dialogs\DialogInput.Designer.cs">
       <DependentUpon>DialogInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +80,12 @@
     <Compile Include="UserControls\DefaultPanel.Designer.cs">
       <DependentUpon>DefaultPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\IconPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\IconPanel.Designer.cs">
+      <DependentUpon>IconPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\LabelPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -84,6 +96,9 @@
     <Compile Include="Utilities\FileSize.cs" />
     <EmbeddedResource Include="Dialogs\DialogInput.resx">
       <DependentUpon>DialogInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
@@ -96,9 +111,13 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="UserControls\DefaultPanel.resx">
       <DependentUpon>DefaultPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\IconPanel.resx">
+      <DependentUpon>IconPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\LabelPanel.resx">
       <DependentUpon>LabelPanel.cs</DependentUpon>

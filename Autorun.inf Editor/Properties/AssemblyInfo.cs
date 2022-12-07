@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Autorun.inf Editor")]
-[assembly: AssemblyDescription("Autorun.inf Editor")]
+[assembly: AssemblyDescription("A portable Autorun.inf editor.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DivineBytes")]
 [assembly: AssemblyProduct("Autorun.inf Editor")]

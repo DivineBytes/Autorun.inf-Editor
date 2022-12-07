@@ -259,5 +259,96 @@ namespace Autorun.inf_Editor.Forms
         {
             RTB_Editor.Text += Environment.NewLine + line;
         }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LabelPanel lp = new LabelPanel();
+            lp.Dock = DockStyle.Fill;
+
+            DialogInput di = new DialogInput();
+            di.Text = "Create Open";
+            di.L_Header.Text = "Enter your application file name:";
+
+            di.P_Main.Controls.Add(lp);
+
+            if (di.ShowDialog(this) == DialogResult.OK)
+            {
+                var str = string.Format("open={0}", lp.TB_Input.Text);
+                WriteDocument(str);
+            }
+        }
+
+        private void TSMI_Icon_Click(object sender, EventArgs e)
+        {
+            IconPanel lp = new IconPanel();
+            lp.Dock = DockStyle.Fill;
+
+            DialogInput di = new DialogInput();
+            di.Text = "Create Icon";
+            di.L_Header.Text = "Enter your icon path & index:";
+
+            di.P_Main.Controls.Add(lp);
+
+            if (di.ShowDialog(this) == DialogResult.OK)
+            {
+                var index = lp.NUD_Index.Value;
+                var str = string.Empty;
+                if (index == 0)
+                {
+                    str = string.Format("icon={0}", lp.TB_Input.Text);
+                }
+                else
+                {
+                    str = string.Format("icon={0},{1}", lp.TB_Input.Text, index);
+                }
+
+                WriteDocument(str);
+            }
+        }
+
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (RTB_Editor.SelectedText.Length > 0)
+            {
+                Clipboard.SetText(RTB_Editor.SelectedText, TextDataFormat.Text);
+                RTB_Editor.Cut();
+            }
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (RTB_Editor.SelectedText.Length > 0)
+            {
+                Clipboard.SetText(RTB_Editor.SelectedText, TextDataFormat.Text);
+            }
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Clipboard.GetText(TextDataFormat.Text).Length > 0)
+            {
+                RTB_Editor.Text += Clipboard.GetText(TextDataFormat.Text);
+            }
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RTB_Editor.SelectedText = string.Empty;
+        }
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RTB_Editor.SelectAll();
+        }
+
+        private void TSMI_About_Click(object sender, EventArgs e)
+        {
+            AboutBox aboutBox = new AboutBox();
+
+            if (aboutBox.ShowDialog(this) == DialogResult.OK)
+            {
+
+            }
+        }
     }
 }

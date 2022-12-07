@@ -29,6 +29,7 @@ namespace Autorun.inf_Editor.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.SS_Main = new System.Windows.Forms.StatusStrip();
             this.TSSL_LnColPos = new System.Windows.Forms.ToolStripStatusLabel();
@@ -42,16 +43,23 @@ namespace Autorun.inf_Editor.Forms
             this.TSMI_SaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.TSMI_Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.TSMI_Edit = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_Entries = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_Label = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_Icon = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_About = new System.Windows.Forms.ToolStripMenuItem();
-            this.RTB_Editor = new Autorun.inf_Editor.Controls.RichTextBoxEx();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CMS_Editor = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RTB_Editor = new Autorun.inf_Editor.Controls.RichTextBoxEx();
             this.SS_Main.SuspendLayout();
             this.MS_Main.SuspendLayout();
+            this.CMS_Editor.SuspendLayout();
             this.SuspendLayout();
             // 
             // SS_Main
@@ -81,7 +89,6 @@ namespace Autorun.inf_Editor.Forms
             // 
             this.MS_Main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.TSMI_Edit,
             this.TSMI_Entries,
             this.helpToolStripMenuItem});
             this.MS_Main.Location = new System.Drawing.Point(0, 0);
@@ -149,12 +156,6 @@ namespace Autorun.inf_Editor.Forms
             this.TSMI_Exit.Text = "Exit";
             this.TSMI_Exit.Click += new System.EventHandler(this.TSMI_Exit_Click);
             // 
-            // TSMI_Edit
-            // 
-            this.TSMI_Edit.Name = "TSMI_Edit";
-            this.TSMI_Edit.Size = new System.Drawing.Size(39, 20);
-            this.TSMI_Edit.Text = "Edit";
-            // 
             // TSMI_Entries
             // 
             this.TSMI_Entries.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -177,6 +178,7 @@ namespace Autorun.inf_Editor.Forms
             this.TSMI_Icon.Name = "TSMI_Icon";
             this.TSMI_Icon.Size = new System.Drawing.Size(180, 22);
             this.TSMI_Icon.Text = "Icon";
+            this.TSMI_Icon.Click += new System.EventHandler(this.TSMI_Icon_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -189,11 +191,77 @@ namespace Autorun.inf_Editor.Forms
             // TSMI_About
             // 
             this.TSMI_About.Name = "TSMI_About";
-            this.TSMI_About.Size = new System.Drawing.Size(107, 22);
+            this.TSMI_About.Size = new System.Drawing.Size(180, 22);
             this.TSMI_About.Text = "About";
+            this.TSMI_About.Click += new System.EventHandler(this.TSMI_About_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // CMS_Editor
+            // 
+            this.CMS_Editor.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cutToolStripMenuItem,
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem,
+            this.deleteToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.selectAllToolStripMenuItem});
+            this.CMS_Editor.Name = "CMS_Editor";
+            this.CMS_Editor.Size = new System.Drawing.Size(165, 120);
+            // 
+            // cutToolStripMenuItem
+            // 
+            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
+            this.cutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.cutToolStripMenuItem.Text = "Cut";
+            this.cutToolStripMenuItem.Click += new System.EventHandler(this.cutToolStripMenuItem_Click);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.pasteToolStripMenuItem.Text = "Paste";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(161, 6);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
             // RTB_Editor
             // 
+            this.RTB_Editor.ContextMenuStrip = this.CMS_Editor;
             this.RTB_Editor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RTB_Editor.Location = new System.Drawing.Point(0, 24);
             this.RTB_Editor.Name = "RTB_Editor";
@@ -202,12 +270,6 @@ namespace Autorun.inf_Editor.Forms
             this.RTB_Editor.TabIndex = 3;
             this.RTB_Editor.Text = "";
             this.RTB_Editor.TextChanged += new System.EventHandler(this.RTB_Editor_TextChanged);
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.openToolStripMenuItem.Text = "Open";
             // 
             // Main
             // 
@@ -227,6 +289,7 @@ namespace Autorun.inf_Editor.Forms
             this.SS_Main.PerformLayout();
             this.MS_Main.ResumeLayout(false);
             this.MS_Main.PerformLayout();
+            this.CMS_Editor.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -240,7 +303,6 @@ namespace Autorun.inf_Editor.Forms
         private System.Windows.Forms.ToolStripMenuItem TSMI_Exit;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem TSMI_About;
-        private System.Windows.Forms.ToolStripMenuItem TSMI_Edit;
         private System.Windows.Forms.ToolStripMenuItem TSMI_New;
         private System.Windows.Forms.ToolStripMenuItem TSMI_Open;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
@@ -254,6 +316,13 @@ namespace Autorun.inf_Editor.Forms
         private Controls.RichTextBoxEx RTB_Editor;
         private System.Windows.Forms.ToolStripStatusLabel TSSL_StartEndLength;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip CMS_Editor;
+        private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
     }
 }
 
