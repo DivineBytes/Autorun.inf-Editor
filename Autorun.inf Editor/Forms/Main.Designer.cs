@@ -47,6 +47,9 @@ namespace Autorun.inf_Editor.Forms
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.RTB_Editor = new System.Windows.Forms.RichTextBox();
+            this.TSMI_Entries = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSMI_Label = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSMI_Icon = new System.Windows.Forms.ToolStripMenuItem();
             this.MS_Main.SuspendLayout();
             this.TS_Main.SuspendLayout();
             this.SuspendLayout();
@@ -64,6 +67,7 @@ namespace Autorun.inf_Editor.Forms
             this.MS_Main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.TSMI_Edit,
+            this.TSMI_Entries,
             this.helpToolStripMenuItem});
             this.MS_Main.Location = new System.Drawing.Point(0, 0);
             this.MS_Main.Name = "MS_Main";
@@ -88,45 +92,45 @@ namespace Autorun.inf_Editor.Forms
             // TSMI_New
             // 
             this.TSMI_New.Name = "TSMI_New";
-            this.TSMI_New.Size = new System.Drawing.Size(123, 22);
+            this.TSMI_New.Size = new System.Drawing.Size(180, 22);
             this.TSMI_New.Text = "New";
             this.TSMI_New.Click += new System.EventHandler(this.TSMI_New_Click);
             // 
             // TSMI_Open
             // 
             this.TSMI_Open.Name = "TSMI_Open";
-            this.TSMI_Open.Size = new System.Drawing.Size(123, 22);
+            this.TSMI_Open.Size = new System.Drawing.Size(180, 22);
             this.TSMI_Open.Text = "Open";
             this.TSMI_Open.Click += new System.EventHandler(this.TSMI_Open_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // TSMI_Save
             // 
             this.TSMI_Save.Name = "TSMI_Save";
-            this.TSMI_Save.Size = new System.Drawing.Size(123, 22);
+            this.TSMI_Save.Size = new System.Drawing.Size(180, 22);
             this.TSMI_Save.Text = "Save";
             this.TSMI_Save.Click += new System.EventHandler(this.TSMI_Save_Click);
             // 
             // TSMI_SaveAs
             // 
             this.TSMI_SaveAs.Name = "TSMI_SaveAs";
-            this.TSMI_SaveAs.Size = new System.Drawing.Size(123, 22);
+            this.TSMI_SaveAs.Size = new System.Drawing.Size(180, 22);
             this.TSMI_SaveAs.Text = "Save As...";
             this.TSMI_SaveAs.Click += new System.EventHandler(this.TSMI_SaveAs_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // TSMI_Exit
             // 
             this.TSMI_Exit.Name = "TSMI_Exit";
-            this.TSMI_Exit.Size = new System.Drawing.Size(123, 22);
+            this.TSMI_Exit.Size = new System.Drawing.Size(180, 22);
             this.TSMI_Exit.Text = "Exit";
             this.TSMI_Exit.Click += new System.EventHandler(this.TSMI_Exit_Click);
             // 
@@ -147,7 +151,7 @@ namespace Autorun.inf_Editor.Forms
             // TSMI_About
             // 
             this.TSMI_About.Name = "TSMI_About";
-            this.TSMI_About.Size = new System.Drawing.Size(107, 22);
+            this.TSMI_About.Size = new System.Drawing.Size(180, 22);
             this.TSMI_About.Text = "About";
             // 
             // TS_Main
@@ -191,6 +195,27 @@ namespace Autorun.inf_Editor.Forms
             this.RTB_Editor.Text = "";
             this.RTB_Editor.TextChanged += new System.EventHandler(this.RTB_Editor_TextChanged);
             // 
+            // TSMI_Entries
+            // 
+            this.TSMI_Entries.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TSMI_Label,
+            this.TSMI_Icon});
+            this.TSMI_Entries.Name = "TSMI_Entries";
+            this.TSMI_Entries.Size = new System.Drawing.Size(54, 20);
+            this.TSMI_Entries.Text = "Entries";
+            // 
+            // TSMI_Label
+            // 
+            this.TSMI_Label.Name = "TSMI_Label";
+            this.TSMI_Label.Size = new System.Drawing.Size(180, 22);
+            this.TSMI_Label.Text = "Label";
+            // 
+            // TSMI_Icon
+            // 
+            this.TSMI_Icon.Name = "TSMI_Icon";
+            this.TSMI_Icon.Size = new System.Drawing.Size(180, 22);
+            this.TSMI_Icon.Text = "Icon";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -200,6 +225,7 @@ namespace Autorun.inf_Editor.Forms
             this.Controls.Add(this.TS_Main);
             this.Controls.Add(this.SS_Main);
             this.Controls.Add(this.MS_Main);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MS_Main;
             this.MinimumSize = new System.Drawing.Size(400, 400);
             this.Name = "Main";
@@ -233,6 +259,9 @@ namespace Autorun.inf_Editor.Forms
         private System.Windows.Forms.ToolStripMenuItem TSMI_SaveAs;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         protected System.Windows.Forms.RichTextBox RTB_Editor;
+        private System.Windows.Forms.ToolStripMenuItem TSMI_Entries;
+        private System.Windows.Forms.ToolStripMenuItem TSMI_Label;
+        private System.Windows.Forms.ToolStripMenuItem TSMI_Icon;
     }
 }
 
