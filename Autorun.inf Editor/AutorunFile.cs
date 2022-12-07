@@ -19,9 +19,8 @@ namespace Autorun.inf_Editor
 
         public static FileDialogFilter AutorunFileDialogFilter = new FileDialogFilter(FileName, FileExtension);
 
-        public static string Header = "[autorun]" + Environment.NewLine;
+        public static string Header = "[autorun]";
 
         public static int HeaderLength = Header.Length;
-
     }
 }

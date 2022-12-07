@@ -1,5 +1,7 @@
 ﻿#region Namespaces
 
+using Autorun.inf_Editor.Dialogs;
+using Autorun.inf_Editor.UserControls;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -14,13 +16,16 @@ namespace Autorun.inf_Editor.Forms
         {
             InitializeComponent();
 
+            RTB_Editor.CursorPositionChanged += new EventHandler(RichTextBox_CursorPositionChanged);
+            RTB_Editor.SelectionChanged += new EventHandler(RichTextBox_SelectionChanged);
+
             CreateNewDocument();
         }
         
         private void CreateNewDocument()
         {
             RTB_Editor.Text = AutorunFile.Header;
-            RTB_Editor.Select(RTB_Editor.TextLength, 1);
+            RTB_Editor.Select(AutorunFile.HeaderLength, 0);
 
             DocumentLocation = string.Empty;
             DocumentSaved = true;
@@ -190,7 +195,10 @@ namespace Autorun.inf_Editor.Forms
 
                 if (RTB_Editor.TextLength > 0)
                 {
+                    int lineNumber = RTB_Editor.GetLineFromCharIndex(RTB_Editor.Text.IndexOf(RTB_Editor.SelectedText));
+                    int columnNumber = 0;
 
+                    TSSL_LnColPos.Text = string.Format("Ln {0}, Col {1}", lineNumber, columnNumber);
                 }
             }
             catch (Exception ex)
@@ -209,6 +217,47 @@ namespace Autorun.inf_Editor.Forms
             {
                 Console.WriteLine(ex);
             }
+        }
+
+        private void RichTextBox_CursorPositionChanged(object sender, System.EventArgs e)
+        {
+            int line = RTB_Editor.CurrentLine;
+            int col = RTB_Editor.CurrentColumn;
+            int pos = RTB_Editor.CurrentPosition;
+
+            TSSL_LnColPos.Text = string.Format("Ln {0}, Col {1}, Pos {2}", line, col, pos);
+        }
+
+        private void RichTextBox_SelectionChanged(object sender, System.EventArgs e)
+        {
+            int start = RTB_Editor.SelectionStart;
+            int end = RTB_Editor.SelectionEnd;
+            int length = RTB_Editor.SelectionLength;
+
+            TSSL_StartEndLength.Text = string.Format("Start {0}, End {1}, Length {2}", start, end, length);
+        }
+
+        private void TSMI_Label_Click(object sender, EventArgs e)
+        {
+            LabelPanel lp = new LabelPanel();
+            lp.Dock = DockStyle.Fill;
+
+            DialogInput di = new DialogInput();
+            di.Text = "Create Label";
+            di.L_Header.Text = "Enter your label:";
+            
+            di.P_Main.Controls.Add(lp);
+
+            if (di.ShowDialog(this) == DialogResult.OK)
+            {
+                var str = string.Format("label={0}", lp.TB_Input.Text);
+                WriteDocument(str);
+            }
+        }
+
+        private void WriteDocument(string line)
+        {
+            RTB_Editor.Text += Environment.NewLine + line;
         }
     }
 }

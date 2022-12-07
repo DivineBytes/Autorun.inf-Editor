@@ -51,6 +51,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutorunFile.cs" />
+    <Compile Include="Controls\RichTextBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DialogInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DialogInput.Designer.cs">
+      <DependentUpon>DialogInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,8 +68,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\DefaultPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\DefaultPanel.Designer.cs">
+      <DependentUpon>DefaultPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\LabelPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\LabelPanel.Designer.cs">
+      <DependentUpon>LabelPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\FileDialogFilter.cs" />
     <Compile Include="Utilities\FileSize.cs" />
+    <EmbeddedResource Include="Dialogs\DialogInput.resx">
+      <DependentUpon>DialogInput.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -73,6 +97,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\DefaultPanel.resx">
+      <DependentUpon>DefaultPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\LabelPanel.resx">
+      <DependentUpon>LabelPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
