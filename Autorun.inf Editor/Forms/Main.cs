@@ -3,6 +3,7 @@
 using Autorun.inf_Editor.Dialogs;
 using Autorun.inf_Editor.UserControls;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
@@ -349,6 +350,20 @@ namespace Autorun.inf_Editor.Forms
             {
 
             }
+        }
+
+        private void TSMI_VisitWiki_Click(object sender, EventArgs e)
+        {
+            string url = "https://en.wikipedia.org/wiki/Autorun.inf";
+
+            Process.Start(url);
+        }
+
+        private void TSMI_VisitLearnMicrosoft_Click(object sender, EventArgs e)
+        {
+            string url = "https://learn.microsoft.com/en-us/windows/win32/shell/autorun-cmds";
+
+            Process.Start(url);
         }
     }
 }
