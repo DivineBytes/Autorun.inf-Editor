@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33027.164
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autorun.inf Editor", "Autorun.inf Editor\Autorun.inf Editor.csproj", "{1EC7A703-755A-44B4-9DCB-17B0FD8F57BD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1EC7A703-755A-44B4-9DCB-17B0FD8F57BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EC7A703-755A-44B4-9DCB-17B0FD8F57BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EC7A703-755A-44B4-9DCB-17B0FD8F57BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EC7A703-755A-44B4-9DCB-17B0FD8F57BD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C864FDAD-863F-4BDB-B67D-F95EEEB07724}
+	EndGlobalSection
+EndGlobal
