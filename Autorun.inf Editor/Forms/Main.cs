@@ -50,15 +50,20 @@ namespace Autorun.inf_Editor.Forms
                 if (!DocumentSaved)
                 {
                     var saved = SaveDocument(RTB_Editor.Text);
-
-                    if (saved)
-                    {
-                        CreateNewDocument();
-                    }
                 }
-                else
+
+                OpenFileDialog openFileDialog = new OpenFileDialog
                 {
-                    CreateNewDocument();
+                    Title = "Open",
+                    Filter = AutorunFile.AutorunFileDialogFilter.Filter,
+                    FileName = ""
+                };
+
+                if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    DocumentSaved = true;
+                    DocumentLocation = openFileDialog.FileName;
+                    RTB_Editor.Text = File.ReadAllText(openFileDialog.FileName);
                 }
             }
             catch (Exception ex)
