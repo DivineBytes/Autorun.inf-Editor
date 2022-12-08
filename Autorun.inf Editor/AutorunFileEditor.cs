@@ -1,29 +1,66 @@
-﻿using System;
+﻿using Autorun.inf_Editor.Controls;
+using System;
 using System.IO;
+using System.Runtime.InteropServices.ComTypes;
 using System.Windows.Forms;
 
 namespace Autorun.inf_Editor
 {
     public class AutorunFileEditor
     {
-        public delegate void ContentChangedDelegate(object obj, EventArgs args);
+        public class ContentEventArgs : EventArgs
+        {
+            public string Content { get; set; }
+
+            public int Length
+            {
+                get
+                {
+                    return Content.Length;
+                }
+            }
+
+            public string[] Lines
+            {
+                get
+                {
+                    var lines = Content.Split('\n');
+                    return lines;
+                }
+            }
+
+            public int LineCount
+            {
+                get
+                {
+                    return Lines.Length;
+                }
+            }
+
+            public ContentEventArgs(string content)
+            {
+                Content = content;
+            }
+        }
+
+        public delegate void ContentChangedDelegate(object obj, ContentEventArgs args);
 
         public event ContentChangedDelegate ContentChangedEvent;
 
         public void ContentChanged()
         {
-            SaveState = false;
+            // SaveState = false;
 
             if (ContentChangedEvent != null)
             {
-                ContentChangedEvent(this, EventArgs.Empty);
+                ContentChangedEvent(this, new ContentEventArgs(Content));
             }
         }
     
         /// <summary>
         /// The file save state.
         /// </summary>
-        public bool SaveState { get; private set; }
+        public bool SaveState { get; set; }
 
         /// <summary>
         /// The file location path.
@@ -195,36 +232,10 @@ namespace Autorun.inf_Editor
         }
 
         /// <summary>
-        /// Asks to save before action.
-        /// </summary>
-        /// <returns>The result value.</returns>
-        public bool AskToSave()
-        {
-            try
-            {
-                if (!SaveState)
-                {
-                    var msgBoxResult = MessageBox.Show("Do you want to save the file?", "Save", MessageBoxButtons.YesNo);
-                    if (msgBoxResult == DialogResult.Yes)
-                    {
-                        return Save();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-
-            return false;
-        }
-
-        /// <summary>
         /// Shows the save as dialog.
         /// </summary>
-        /// <param name="content">The content.</param>
         /// <returns>The result value.</returns>
-        public bool ShowSaveDialog(string content)
+        public bool SaveAs()
         {
             try
             {
@@ -237,7 +248,7 @@ namespace Autorun.inf_Editor
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var saved = Save(saveFileDialog.FileName, content);
+                    var saved = Save(saveFileDialog.FileName, Content);
 
                     if (saved)
                     {
@@ -247,49 +258,6 @@ namespace Autorun.inf_Editor
                         return true;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Saves the file contents to location.
-        /// </summary>
-        /// <param name="showDialog">The toggle to show the dialog.</param>
-        /// <returns>The result value.</returns>
-        public bool Save(bool showDialog)
-        {
-            SaveState = false;
-
-            if (!FileExists)
-            {
-                return ShowSaveDialog(Content);
-            }
-
-            try
-            {
-                var saved = false;
-
-                if (showDialog)
-                {
-                    saved = ShowSaveDialog(Content);
-                }
-                else
-                {
-                    saved = Save(Location, Content);
-                }
-
-                if (saved)
-                {
-                    SaveState = true;
-                    return true;
-                }
-
-
             }
             catch (Exception ex)
             {

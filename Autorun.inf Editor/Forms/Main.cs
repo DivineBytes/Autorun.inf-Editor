@@ -27,30 +27,37 @@ namespace Autorun.inf_Editor.Forms
 
             // Initialize
             fileEditor = new AutorunFileEditor();
+            fileEditor.ContentChangedEvent += FileEditor_ContentChangedEvent;
 
             // Initialize the event handlers
             RTB_Editor.CursorPositionChanged += new EventHandler(RichTextBox_CursorPositionChanged);
             RTB_Editor.SelectionChanged += new EventHandler(RichTextBox_SelectionChanged);
 
             // Create new document
-            CreateNewDocument();
+            TSMI_New.PerformClick();
         }
 
-        private void CreateNewDocument()
+        private void FileEditor_ContentChangedEvent(object obj, AutorunFileEditor.ContentEventArgs args)
         {
-            fileEditor.New();
-
-            // Set cursor selection after inserted text.
-            RTB_Editor.Text = AutorunFile.Header;
-            RTB_Editor.Select(AutorunFile.HeaderLength, 0);
+            // RTB_Editor.Text = args.Content;
+            TSSL_Length.Text = "Length: " + args.Length;
+            TSSL_Lines.Text = "Lines: " + args.LineCount;
         }
 
         private void TSMI_New_Click(object sender, EventArgs e)
         {
             try
             {
-                fileEditor.AskToSave();
-                CreateNewDocument();
+                if (!fileEditor.SaveState)
+                {
+                    var saved = fileEditor.Save();
+                }
+
+                fileEditor.New();
+
+                // Set cursor selection after inserted text.
+                RTB_Editor.Text = AutorunFile.Header;
+                RTB_Editor.Select(AutorunFile.HeaderLength, 0);
             }
             catch (Exception ex)
             {
@@ -78,15 +85,7 @@ namespace Autorun.inf_Editor.Forms
 
         private void TSMI_Exit_Click(object sender, EventArgs e)
         {
-            try
-            {
-                fileEditor.AskToSave();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-
+            ApplicationClosing();
             Application.Exit();
         }
 
@@ -94,7 +93,16 @@ namespace Autorun.inf_Editor.Forms
         {
             try
             {
-                var saved = fileEditor.Save();
+                var saved = false;
+                if (fileEditor.FileExists)
+                {
+                    saved = fileEditor.Save();
+                }
+                else
+                {
+                    saved = fileEditor.SaveAs();
+                }
+
                 TSSL_SaveFileName.Text = fileEditor.SavedTitle;
             }
             catch (Exception ex)
@@ -107,8 +115,8 @@ namespace Autorun.inf_Editor.Forms
         {
             try
             {
-               var saved = fileEditor.Save(true);
-               TSSL_SaveFileName.Text = fileEditor.SavedTitle;
+                var saved = fileEditor.SaveAs();
+                TSSL_SaveFileName.Text = fileEditor.SavedTitle;
             }
             catch (Exception ex)
             {
@@ -119,6 +127,7 @@ namespace Autorun.inf_Editor.Forms
         private void RTB_Editor_TextChanged(object sender, EventArgs e)
         {
             fileEditor.Content = RTB_Editor.Text;
+            fileEditor.SaveState = false;
 
             try
             {
@@ -140,14 +149,7 @@ namespace Autorun.inf_Editor.Forms
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            try
-            {
-                fileEditor.AskToSave();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
+            ApplicationClosing();
         }
 
         private void RichTextBox_CursorPositionChanged(object sender, System.EventArgs e)
@@ -156,7 +158,7 @@ namespace Autorun.inf_Editor.Forms
             int col = RTB_Editor.CurrentColumn;
             int pos = RTB_Editor.CurrentPosition;
 
-            TSSL_LnColPos.Text = string.Format("Ln {0}, Col {1}, Pos {2}", line, col, pos);
+            TSSL_LnColPos.Text = string.Format("Line: {0}, Column: {1}, Position: {2}", line, col, pos);
         }
 
         private void RichTextBox_SelectionChanged(object sender, System.EventArgs e)
@@ -165,7 +167,7 @@ namespace Autorun.inf_Editor.Forms
             int end = RTB_Editor.SelectionEnd;
             int length = RTB_Editor.SelectionLength;
 
-            TSSL_StartEndLength.Text = string.Format("Start {0}, End {1}, Length {2}", start, end, length);
+            TSSL_StartEndLength.Text = string.Format("Start: {0}, End: {1}, Length: {2}", start, end, length);
         }
 
         private void TSMI_Label_Click(object sender, EventArgs e)
@@ -176,7 +178,7 @@ namespace Autorun.inf_Editor.Forms
             DialogInput di = new DialogInput();
             di.Text = "Create Label";
             di.L_Header.Text = "Enter your label:";
-            
+
             di.P_Main.Controls.Add(lp);
 
             if (di.ShowDialog(this) == DialogResult.OK)
@@ -184,11 +186,6 @@ namespace Autorun.inf_Editor.Forms
                 var str = string.Format("label={0}", lp.TB_Input.Text);
                 WriteDocument(str);
             }
-        }
-
-        private void WriteDocument(string line)
-        {
-            RTB_Editor.Text += Environment.NewLine + line;
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -292,6 +289,33 @@ namespace Autorun.inf_Editor.Forms
         {
             string url = "https://learn.microsoft.com/en-us/windows/win32/shell/autorun-cmds";
             Process.Start(url);
+        }
+
+        private void WriteDocument(string line)
+        {
+            if (!string.IsNullOrEmpty(line))
+            {
+                RTB_Editor.Text += Environment.NewLine + line;
+            }            
+        }
+        
+        private void ApplicationClosing()
+        {
+            try
+            {
+                if (!fileEditor.SaveState)
+                {
+                    var msgBoxResult = MessageBox.Show("Do you want to save the file?", "Save", MessageBoxButtons.YesNo);
+                    if (msgBoxResult == DialogResult.Yes)
+                    {
+                        var saved = fileEditor.Save();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

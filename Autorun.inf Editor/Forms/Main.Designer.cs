@@ -34,6 +34,7 @@ namespace Autorun.inf_Editor.Forms
             this.SS_Main = new System.Windows.Forms.StatusStrip();
             this.TSSL_LnColPos = new System.Windows.Forms.ToolStripStatusLabel();
             this.TSSL_StartEndLength = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TSSL_SaveFileName = new System.Windows.Forms.ToolStripStatusLabel();
             this.MS_Main = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_New = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,9 +47,12 @@ namespace Autorun.inf_Editor.Forms
             this.TSMI_Entries = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_Label = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_Icon = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_About = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.TSMI_VisitLearnMicrosoft = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSMI_VisitWiki = new System.Windows.Forms.ToolStripMenuItem();
             this.CMS_Editor = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,11 +60,9 @@ namespace Autorun.inf_Editor.Forms
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.TSMI_VisitWiki = new System.Windows.Forms.ToolStripMenuItem();
-            this.TSMI_VisitLearnMicrosoft = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSSL_Length = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TSSL_Lines = new System.Windows.Forms.ToolStripStatusLabel();
             this.RTB_Editor = new Autorun.inf_Editor.Controls.RichTextBoxEx();
-            this.TSSL_SaveFileName = new System.Windows.Forms.ToolStripStatusLabel();
             this.SS_Main.SuspendLayout();
             this.MS_Main.SuspendLayout();
             this.CMS_Editor.SuspendLayout();
@@ -69,6 +71,8 @@ namespace Autorun.inf_Editor.Forms
             // SS_Main
             // 
             this.SS_Main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TSSL_Length,
+            this.TSSL_Lines,
             this.TSSL_LnColPos,
             this.TSSL_StartEndLength,
             this.TSSL_SaveFileName});
@@ -90,6 +94,12 @@ namespace Autorun.inf_Editor.Forms
             this.TSSL_StartEndLength.Size = new System.Drawing.Size(127, 17);
             this.TSSL_StartEndLength.Text = "Start 0, End 0, Length 0";
             this.TSSL_StartEndLength.Visible = false;
+            // 
+            // TSSL_SaveFileName
+            // 
+            this.TSSL_SaveFileName.Name = "TSSL_SaveFileName";
+            this.TSSL_SaveFileName.Size = new System.Drawing.Size(12, 17);
+            this.TSSL_SaveFileName.Text = "*";
             // 
             // MS_Main
             // 
@@ -192,6 +202,13 @@ namespace Autorun.inf_Editor.Forms
             this.TSMI_Icon.Text = "Icon";
             this.TSMI_Icon.Click += new System.EventHandler(this.TSMI_Icon_Click);
             // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -210,12 +227,24 @@ namespace Autorun.inf_Editor.Forms
             this.TSMI_About.Text = "About";
             this.TSMI_About.Click += new System.EventHandler(this.TSMI_About_Click);
             // 
-            // openToolStripMenuItem
+            // toolStripSeparator4
             // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(179, 6);
+            // 
+            // TSMI_VisitLearnMicrosoft
+            // 
+            this.TSMI_VisitLearnMicrosoft.Name = "TSMI_VisitLearnMicrosoft";
+            this.TSMI_VisitLearnMicrosoft.Size = new System.Drawing.Size(182, 22);
+            this.TSMI_VisitLearnMicrosoft.Text = "Visit Learn.Microsoft";
+            this.TSMI_VisitLearnMicrosoft.Click += new System.EventHandler(this.TSMI_VisitLearnMicrosoft_Click);
+            // 
+            // TSMI_VisitWiki
+            // 
+            this.TSMI_VisitWiki.Name = "TSMI_VisitWiki";
+            this.TSMI_VisitWiki.Size = new System.Drawing.Size(182, 22);
+            this.TSMI_VisitWiki.Text = "Visit Wiki";
+            this.TSMI_VisitWiki.Click += new System.EventHandler(this.TSMI_VisitWiki_Click);
             // 
             // CMS_Editor
             // 
@@ -274,24 +303,17 @@ namespace Autorun.inf_Editor.Forms
             this.selectAllToolStripMenuItem.Text = "Select All";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
-            // toolStripSeparator4
+            // TSSL_Length
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(179, 6);
+            this.TSSL_Length.Name = "TSSL_Length";
+            this.TSSL_Length.Size = new System.Drawing.Size(56, 17);
+            this.TSSL_Length.Text = "Length: 0";
             // 
-            // TSMI_VisitWiki
+            // TSSL_Lines
             // 
-            this.TSMI_VisitWiki.Name = "TSMI_VisitWiki";
-            this.TSMI_VisitWiki.Size = new System.Drawing.Size(182, 22);
-            this.TSMI_VisitWiki.Text = "Visit Wiki";
-            this.TSMI_VisitWiki.Click += new System.EventHandler(this.TSMI_VisitWiki_Click);
-            // 
-            // TSMI_VisitLearnMicrosoft
-            // 
-            this.TSMI_VisitLearnMicrosoft.Name = "TSMI_VisitLearnMicrosoft";
-            this.TSMI_VisitLearnMicrosoft.Size = new System.Drawing.Size(182, 22);
-            this.TSMI_VisitLearnMicrosoft.Text = "Visit Learn.Microsoft";
-            this.TSMI_VisitLearnMicrosoft.Click += new System.EventHandler(this.TSMI_VisitLearnMicrosoft_Click);
+            this.TSSL_Lines.Name = "TSSL_Lines";
+            this.TSSL_Lines.Size = new System.Drawing.Size(46, 17);
+            this.TSSL_Lines.Text = "Lines: 1";
             // 
             // RTB_Editor
             // 
@@ -304,12 +326,6 @@ namespace Autorun.inf_Editor.Forms
             this.RTB_Editor.TabIndex = 3;
             this.RTB_Editor.Text = "";
             this.RTB_Editor.TextChanged += new System.EventHandler(this.RTB_Editor_TextChanged);
-            // 
-            // TSSL_SaveFileName
-            // 
-            this.TSSL_SaveFileName.Name = "TSSL_SaveFileName";
-            this.TSSL_SaveFileName.Size = new System.Drawing.Size(12, 17);
-            this.TSSL_SaveFileName.Text = "*";
             // 
             // Main
             // 
@@ -367,6 +383,8 @@ namespace Autorun.inf_Editor.Forms
         private System.Windows.Forms.ToolStripMenuItem TSMI_VisitWiki;
         private System.Windows.Forms.ToolStripMenuItem TSMI_VisitLearnMicrosoft;
         protected internal System.Windows.Forms.ToolStripStatusLabel TSSL_SaveFileName;
+        private System.Windows.Forms.ToolStripStatusLabel TSSL_Length;
+        private System.Windows.Forms.ToolStripStatusLabel TSSL_Lines;
     }
 }
 
